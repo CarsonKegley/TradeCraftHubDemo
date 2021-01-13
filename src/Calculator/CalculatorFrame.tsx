@@ -72,116 +72,112 @@ function CalculatorFrame() {
   return (
     <CalculatorWindow>
       <CalcContent>
-        
-        <ButtonBank>
+        <InputArea>
           <InputWindow value={input}></InputWindow>
-          <InputText>{firstNumber + "  " + operator} </InputText> 
-        </ButtonBank>
-        <div style = {{display:"flex",}}>
-        <ButtonBank>
-          <div>
+          <InputText>{firstNumber + "  " + operator} </InputText>
+        </InputArea>
+        <div style={{ display: "flex" }}>
+          <ButtonBank>
+            <div>
+              <CalcButton
+                data-testid="numberSeven"
+                onClick={() => appendNumber("7")}
+              >
+                <ButtonText>7</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="numberEight"
+                onClick={() => appendNumber("8")}
+              >
+                <ButtonText>8</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="numberNine"
+                onClick={() => appendNumber("9")}
+              >
+                <ButtonText>9</ButtonText>
+              </CalcButton>
+            </div>
+            <div>
+              <CalcButton
+                data-testid="numberFour"
+                onClick={() => appendNumber("4")}
+              >
+                <ButtonText>4</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="numberFive"
+                onClick={() => appendNumber("5")}
+              >
+                <ButtonText>5</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="numberSix"
+                onClick={() => appendNumber("6")}
+              >
+                <ButtonText>6</ButtonText>
+              </CalcButton>
+            </div>
+            <div>
+              <CalcButton
+                data-testid="numberOne"
+                onClick={() => appendNumber("1")}
+              >
+                <ButtonText>1</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="numberTwo"
+                onClick={() => appendNumber("2")}
+              >
+                <ButtonText>2</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="numberThree"
+                onClick={() => appendNumber("3")}
+              >
+                <ButtonText>3</ButtonText>
+              </CalcButton>
+            </div>
+            <div>
+              <CalcButton
+                data-testid="functionNegative"
+                onClick={() => {
+                  negate();
+                }}
+              >
+                <ButtonText>(-)</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="numberZero"
+                onClick={() => appendNumber("0")}
+              >
+                <ButtonText>0</ButtonText>
+              </CalcButton>
+              <CalcButton
+                data-testid="functionClear"
+                onClick={() => clearInput()}
+              >
+                <ButtonText>C</ButtonText>
+              </CalcButton>
+            </div>
+            <div>
+              <CalcButton onClick={() => decimalButton(input)}>
+                <ButtonText>.</ButtonText>
+              </CalcButton>
+              <EqualsButton onClick={() => equalsButton()}>
+                {" "}
+                <EqualsButtonText>=</EqualsButtonText>{" "}
+              </EqualsButton>
+            </div>
+          </ButtonBank>
+          <FunctionButtonGroup>
             <CalcButton
-              data-testid="numberSeven"
-              onClick={() => appendNumber("7")}
+              data-testid="functionDivide"
+              onClick={() => functionSelect("/")}
             >
-              <ButtonText>7</ButtonText>
+              <ButtonText>/</ButtonText>
             </CalcButton>
             <CalcButton
-              data-testid="numberEight"
-              onClick={() => appendNumber("8")}
-            >
-              <ButtonText>8</ButtonText>
-            </CalcButton>
-            <CalcButton
-              data-testid="numberNine"
-              onClick={() => appendNumber("9")}
-            >
-              <ButtonText>9</ButtonText>
-            </CalcButton>
-          </div>
-          <div>
-            <CalcButton
-              data-testid="numberFour"
-              onClick={() => appendNumber("4")}
-            >
-              <ButtonText>4</ButtonText>
-            </CalcButton>
-            <CalcButton
-              data-testid="numberFive"
-              onClick={() => appendNumber("5")}
-            >
-              <ButtonText>5</ButtonText>
-            </CalcButton>
-            <CalcButton
-              data-testid="numberSix"
-              onClick={() => appendNumber("6")}
-            >
-              <ButtonText>6</ButtonText>
-            </CalcButton>
-            
-          </div>
-          <div>
-            <CalcButton
-              data-testid="numberOne"
-              onClick={() => appendNumber("1")}
-            >
-              <ButtonText>1</ButtonText>
-            </CalcButton>
-            <CalcButton
-              data-testid="numberTwo"
-              onClick={() => appendNumber("2")}
-            >
-              <ButtonText>2</ButtonText>
-            </CalcButton>
-            <CalcButton
-              data-testid="numberThree"
-              onClick={() => appendNumber("3")}
-            >
-              <ButtonText>3</ButtonText>
-            </CalcButton>
-            
-          </div>
-          <div>
-            <CalcButton
-              data-testid="functionNegative"
-              onClick={() => {
-                negate();
-              }}
-            >
-              <ButtonText>(-)</ButtonText>
-            </CalcButton>
-            <CalcButton
-              data-testid="numberZero"
-              onClick={() => appendNumber("0")}
-            >
-              <ButtonText>0</ButtonText>
-            </CalcButton>
-            <CalcButton
-              data-testid="functionClear"
-              onClick={() => clearInput()}
-            >
-              <ButtonText>C</ButtonText>
-            </CalcButton>
-            
-          </div>
-          <div>
-            <CalcButton onClick={() => decimalButton(input)}>
-              <ButtonText>.</ButtonText>
-            </CalcButton>
-            <EqualsButton onClick={() => equalsButton()}>
-              {" "}
-              <EqualsButtonText>=</EqualsButtonText>{" "}
-            </EqualsButton>
-          </div>
-        </ButtonBank>
-        <FunctionButtonGroup>
-          <CalcButton
-            data-testid="functionDivide"
-            onClick={() => functionSelect("/")}
-          >
-            <ButtonText>/</ButtonText>
-          </CalcButton>
-          <CalcButton
               data-testid="functionMultiply"
               onClick={() => functionSelect("*")}
             >
@@ -193,13 +189,13 @@ function CalculatorFrame() {
             >
               <ButtonText>-</ButtonText>
             </CalcButton>
-          <AddButton
-            data-testid="functionAdd"
-            onClick={() => functionSelect("+")}
-          >
-            <AddButtonText>+</AddButtonText>
-          </AddButton>
-        </FunctionButtonGroup>
+            <AddButton
+              data-testid="functionAdd"
+              onClick={() => functionSelect("+")}
+            >
+              <AddButtonText>+</AddButtonText>
+            </AddButton>
+          </FunctionButtonGroup>
         </div>
       </CalcContent>
     </CalculatorWindow>
@@ -209,7 +205,7 @@ function CalculatorFrame() {
 const CalculatorWindow = styled.div`
   background-color: #9f9f9f;
   width: 362x;
-  height: 575px;
+  height: 585px;
   border-radius: 10px;
   background: #9f9f9f;
   box-shadow: -4px 4px 9px #282828;
@@ -224,7 +220,9 @@ const ButtonBank = styled.div`
 const InputArea = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top:20px;
+  margin-top: 20px;
+  margin-right: 20px;
+  margin-left: 20px;
 `;
 const CalcButton = styled(Button)`
   width: 60px;
@@ -239,8 +237,7 @@ const CalcButton = styled(Button)`
 `;
 
 const AddButton = styled(CalcButton)`
-  height:140px;
-
+  height: 140px;
 `;
 
 const EqualsButton = styled(CalcButton)`
@@ -258,15 +255,13 @@ const InputWindow = styled(Form.Control)`
   border-color: #bebebe;
   font-size: 33px;
   border-style: hidden;
+  color: #444444;
 `;
 const CalcContent = styled.div`
   marign: 50px;
   display: flex;
   flex-direction: column;
 `;
-
-
-
 
 //Text styling
 const ButtonText = styled.span`
@@ -285,12 +280,14 @@ const AddButtonText = styled(ButtonText)`
 `;
 
 const InputText = styled(Form.Text)`
-  margin: 10px;
-  font-size: 24px;
+  margin-right: 10px;
+  margin-left: 10px;
+  font-size: 18px;
+  min-height: 25px;
 `;
 const FunctionButtonGroup = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   margin: 20px;
 `;
 export default CalculatorFrame;
