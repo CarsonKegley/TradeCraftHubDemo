@@ -73,10 +73,10 @@ function CalculatorFrame() {
     <CalculatorWindow>
       <CalcContent>
         
-        <ButtonBank>
+        <InputArea>
           <InputWindow value={input}></InputWindow>
           <InputText>{firstNumber + "  " + operator} </InputText> 
-        </ButtonBank>
+        </InputArea>
         <div style = {{display:"flex",}}>
         <ButtonBank>
           <div>
@@ -221,10 +221,18 @@ const ButtonBank = styled.div`
   margin: 20px;
 `;
 
+const FunctionButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column; 
+  margin: 20px;
+`;
+
 const InputArea = styled.div`
   display: flex;
   flex-direction: column;
   margin-top:20px;
+  margin-left:20px;
+  margin-right:20px;
 `;
 const CalcButton = styled(Button)`
   width: 60px;
@@ -285,12 +293,9 @@ const AddButtonText = styled(ButtonText)`
 `;
 
 const InputText = styled(Form.Text)`
-  margin: 10px;
-  font-size: 24px;
+  margin-left:20px;
+  font-size: 18px;
+  min-height:25px;
 `;
-const FunctionButtonGroup = styled.div`
-  display: flex;
-  flex-direction: column; 
-  margin: 20px;
-`;
+
 export default CalculatorFrame;
