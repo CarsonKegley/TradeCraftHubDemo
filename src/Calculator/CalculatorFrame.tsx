@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Button, Form } from "react-bootstrap";
 import styled from "styled-components";
-import { negative } from "../helpers/calcHelper";
+import { addDecimal, negative } from "../helpers/calcHelper";
 
 function CalculatorFrame() {
-  const [input, setInput] = useState<string>("");
+  const [input, setInput] = useState<string>("0");
   const [operator, setOperator] = useState<string>("");
   const [firstNumber, setFirstNumber] = useState<string>("");
 
   function appendNumber(numberButton: string) {
-    if (isNaN(parseInt(input)) || input === "0") {
+    if (isNaN(Number(input)) || input === "0") {
       setInput(numberButton);
     } else {
       const currentInput = input + numberButton;
@@ -18,17 +18,17 @@ function CalculatorFrame() {
   }
 
   function clearInput() {
-    const currentInput = "";
+    const currentInput = "0";
     setInput(currentInput);
-    if (input === "") {
+    if (input === "0") {
       setFirstNumber("");
       setOperator("");
     }
   }
 
   function negate() {
-    if (input !== "") {
-      const currentInput = negative(parseInt(input)).toString();
+    if (!isNaN(Number(input))) {
+      const currentInput = negative(Number(input)).toString();
       setInput(currentInput);
     }
   }
@@ -37,7 +37,7 @@ function CalculatorFrame() {
     if (firstNumber === "") {
       setOperator(value);
       setFirstNumber(input);
-      setInput("");
+      setInput("0");
     } else {
       equalsButton();
     }
@@ -45,169 +45,162 @@ function CalculatorFrame() {
 
   function equalsButton() {
     if (operator === "+") {
-      const first = parseInt(firstNumber);
-      const second = parseInt(input);
+      const first = Number(firstNumber);
+      const second = Number(input);
       setInput((first + second).toString());
-      setFirstNumber("");
-      setOperator("");
     } else if (operator === "-") {
-      const first = parseInt(firstNumber);
-      const second = parseInt(input);
+      const first = Number(firstNumber);
+      const second = Number(input);
       setInput((first - second).toString());
-      setFirstNumber("");
-      setOperator("");
     } else if (operator === "*") {
-      const first = parseInt(firstNumber);
-      const second = parseInt(input);
+      const first = Number(firstNumber);
+      const second = Number(input);
       setInput((first * second).toString());
-      setFirstNumber("");
-      setOperator("");
-    } else {
-      const first = parseInt(firstNumber);
-      const second = parseInt(input);
+    } else if (operator === "/") {
+      const first = Number(firstNumber);
+      const second = Number(input);
       setInput((first / second).toString());
-      setFirstNumber("");
-      setOperator("");
     }
+    setFirstNumber("");
+    setOperator("");
+  }
+
+  function decimalButton(value: string) {
+    setInput(addDecimal(value));
   }
 
   return (
     <CalculatorWindow>
       <CalcContent>
+        
         <ButtonBank>
           <InputWindow value={input}></InputWindow>
-          <Form.Text> {firstNumber + "  " + operator} </Form.Text>
+          <InputText>{firstNumber + "  " + operator} </InputText> 
         </ButtonBank>
+        <div style = {{display:"flex",}}>
         <ButtonBank>
           <div>
             <CalcButton
-              variant="light"
               data-testid="numberSeven"
               onClick={() => appendNumber("7")}
             >
-              7
+              <ButtonText>7</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="numberEight"
               onClick={() => appendNumber("8")}
             >
-              8
+              <ButtonText>8</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="numberNine"
               onClick={() => appendNumber("9")}
             >
-              9
-            </CalcButton>
-            <CalcButton
-              variant="light"
-              data-testid="functionAdd"
-              onClick={() => functionSelect("+")}
-            >
-              +
+              <ButtonText>9</ButtonText>
             </CalcButton>
           </div>
           <div>
             <CalcButton
-              variant="light"
               data-testid="numberFour"
               onClick={() => appendNumber("4")}
             >
-              4
+              <ButtonText>4</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="numberFive"
               onClick={() => appendNumber("5")}
             >
-              5
+              <ButtonText>5</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="numberSix"
               onClick={() => appendNumber("6")}
             >
-              6
+              <ButtonText>6</ButtonText>
             </CalcButton>
-            <CalcButton
-              variant="light"
-              data-testid="functionSubtract"
-              onClick={() => functionSelect("-")}
-            >
-              -
-            </CalcButton>
+            
           </div>
           <div>
             <CalcButton
-              variant="light"
               data-testid="numberOne"
               onClick={() => appendNumber("1")}
             >
-              1
+              <ButtonText>1</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="numberTwo"
               onClick={() => appendNumber("2")}
             >
-              2
+              <ButtonText>2</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="numberThree"
               onClick={() => appendNumber("3")}
             >
-              3
+              <ButtonText>3</ButtonText>
             </CalcButton>
-            <CalcButton
-              variant="light"
-              data-testid="functionMultiply"
-              onClick={() => functionSelect("*")}
-            >
-              *
-            </CalcButton>
+            
           </div>
           <div>
             <CalcButton
-              variant="light"
               data-testid="functionNegative"
               onClick={() => {
                 negate();
               }}
             >
-              (-)
+              <ButtonText>(-)</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="numberZero"
               onClick={() => appendNumber("0")}
             >
-              0
+              <ButtonText>0</ButtonText>
             </CalcButton>
             <CalcButton
-              variant="light"
               data-testid="functionClear"
               onClick={() => clearInput()}
             >
-              C
+              <ButtonText>C</ButtonText>
             </CalcButton>
-            <CalcButton
-              variant="light"
-              data-testid="functionDivide"
-              onClick={() => functionSelect("/")}
-            >
-              /
-            </CalcButton>
+            
           </div>
           <div>
-            <CalcButton variant="dark" onClick={() => functionSelect("/")}>
-              .
+            <CalcButton onClick={() => decimalButton(input)}>
+              <ButtonText>.</ButtonText>
             </CalcButton>
-            <EqualsButton onClick={() => equalsButton()}> = </EqualsButton>
+            <EqualsButton onClick={() => equalsButton()}>
+              {" "}
+              <EqualsButtonText>=</EqualsButtonText>{" "}
+            </EqualsButton>
           </div>
         </ButtonBank>
+        <FunctionButtonGroup>
+          <CalcButton
+            data-testid="functionDivide"
+            onClick={() => functionSelect("/")}
+          >
+            <ButtonText>/</ButtonText>
+          </CalcButton>
+          <CalcButton
+              data-testid="functionMultiply"
+              onClick={() => functionSelect("*")}
+            >
+              <ButtonText>*</ButtonText>
+            </CalcButton>
+            <CalcButton
+              data-testid="functionSubtract"
+              onClick={() => functionSelect("-")}
+            >
+              <ButtonText>-</ButtonText>
+            </CalcButton>
+          <AddButton
+            data-testid="functionAdd"
+            onClick={() => functionSelect("+")}
+          >
+            <AddButtonText>+</AddButtonText>
+          </AddButton>
+        </FunctionButtonGroup>
+        </div>
       </CalcContent>
     </CalculatorWindow>
   );
@@ -217,6 +210,9 @@ const CalculatorWindow = styled.div`
   background-color: #9f9f9f;
   width: 362x;
   height: 575px;
+  border-radius: 10px;
+  background: #9f9f9f;
+  box-shadow: -4px 4px 9px #282828;
 `;
 
 const ButtonBank = styled.div`
@@ -225,17 +221,30 @@ const ButtonBank = styled.div`
   margin: 20px;
 `;
 
+const InputArea = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top:20px;
+`;
 const CalcButton = styled(Button)`
   width: 60px;
   height: 60px;
   margin: 10px;
-  background-color: "#9B9B9B";
+  border-radius: 10px;
+  background: #9b9b9b;
+  box-shadow: -6px 6px 12px #888888, 6px -6px 12px #aeaeae;
+  border-color: #9b9b9b;
+  color: white;
+  border-style: hidden;
 `;
 
-const EqualsButton = styled(Button)`
-  width: 130px;
-  height: 60px;
-  background-color: "#9B9B9B";
+const AddButton = styled(CalcButton)`
+  height:140px;
+
+`;
+
+const EqualsButton = styled(CalcButton)`
+  width: 140px;
 `;
 
 const InputWindow = styled(Form.Control)`
@@ -243,8 +252,45 @@ const InputWindow = styled(Form.Control)`
   text-align: right;
   width: 322px;
   height: 66px;
+  border-radius: 10px;
+  background: #bebebe;
+  box-shadow: inset 22px -22px 44px #a7a7a7, inset -22px 22px 44px #d5d5d5;
+  border-color: #bebebe;
+  font-size: 33px;
+  border-style: hidden;
 `;
 const CalcContent = styled.div`
   marign: 50px;
+  display: flex;
+  flex-direction: column;
+`;
+
+
+
+
+//Text styling
+const ButtonText = styled.span`
+  position: relative;
+  bottom: -14px;
+  right: -16px;
+  font-size: 24px;
+`;
+
+const EqualsButtonText = styled(ButtonText)`
+  right: -55px;
+`;
+
+const AddButtonText = styled(ButtonText)`
+  bottom: -55px;
+`;
+
+const InputText = styled(Form.Text)`
+  margin: 10px;
+  font-size: 24px;
+`;
+const FunctionButtonGroup = styled.div`
+  display: flex;
+  flex-direction: column; 
+  margin: 20px;
 `;
 export default CalculatorFrame;

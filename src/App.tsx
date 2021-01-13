@@ -5,9 +5,7 @@ import CalculatorFrame from "./Calculator/CalculatorFrame";
 function App() {
   return (
     <div className="App">
-      <CalculatorFrame/>
-        
-      
+      <CalculatorFrame />
     </div>
   );
 }

@@ -4,7 +4,7 @@ import CalculatorFrame from "./CalculatorFrame";
 
 describe("Calculator Frame Functionality", () => {
   it("Renders the number and function buttons", () => {
-      const { getByTestId, queryByText} = render(<CalculatorFrame />);
+      const { getByTestId} = render(<CalculatorFrame />);
 
         const buttonNumberOne = getByTestId("numberOne");
         expect(buttonNumberOne).not.toBeNull();
